@@ -1,7 +1,7 @@
 ### Meteo Dashboard
 
-Todo
-====
+# Todo
+
 - [x] Initializing the project
 - [x] Implementing Leaflet
 - [x] Handling single locations (Points)
