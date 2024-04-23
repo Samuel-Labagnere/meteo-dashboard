@@ -33,7 +33,7 @@
 <section class="relative">
 	<input
 		type="text"
-		class="absolute top-5 left-20 rounded w-1/4 h-10 border px-4 z-[999]"
+		id="searchbar"
 		placeholder="Rechercher"
 		bind:this={searchElement}
 		on:keydown={handleSearch}

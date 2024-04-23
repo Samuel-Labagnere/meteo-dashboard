@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { type LatLngExpression } from 'leaflet';
-	import Leaflet from '$lib/Leaflet.svelte';
+  import Leaflet from '$lib/Leaflet.svelte';
 	import Marker from '$lib/Marker.svelte';
 	import Vector from '$lib/Vector.svelte';
 	import { getLocation } from '$lib/openStreetMap';
 	import { search } from '$lib/store';
+	import { type LatLngExpression } from 'leaflet';
 
 	const initialView: LatLngExpression = [48.864716, 2.349014]; // Paris, France
 
