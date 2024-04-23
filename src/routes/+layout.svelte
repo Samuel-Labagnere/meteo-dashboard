@@ -1,12 +1,23 @@
 <script lang="ts">
   import "../app.css";
   import { search } from "$lib/store";
+	import { onMount } from "svelte";
+  export let data;
 
   let searchElement: HTMLInputElement;
 
+  onMount(async () => {
+    if (data.address) {
+      searchElement.value = data.address;
+      $search = data.address;
+    }
+  });
+
   const handleSearch = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' && searchElement.value.trim() !== '') {
-      $search = searchElement.value.trim();
+    const value = searchElement.value.trim();
+    if (event.key === 'Enter' && value !== '') {
+      $search = value;
+      document.cookie = `address=${value}`;
     }
   };
 </script>
