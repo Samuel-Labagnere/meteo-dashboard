@@ -3,9 +3,9 @@
 	import L from 'leaflet';
 
 	export let latLngs: L.LatLngExpression[];
-  export let color: string = 'red';
+	export let color: string = 'red';
 
-	let polygon: L.polygon | undefined;
+	let polygon: L.Polygon | undefined;
 	let polygonElement: HTMLElement;
 
 	const { getMap }: { getMap: () => L.Map | undefined } = getContext('map');
@@ -17,8 +17,8 @@
 
 	onMount(() => {
 		if (map) {
-      polygon = L.polygon(latLngs, {color}).addTo(map);
-      map.flyToBounds(polygon.getBounds());
+			polygon = L.polygon(latLngs, { color }).addTo(map);
+			map.flyToBounds(polygon.getBounds());
 		}
 	});
 

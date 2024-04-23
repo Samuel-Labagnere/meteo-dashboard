@@ -1,38 +1,34 @@
 <script lang="ts">
-  import { LatLngExpression } from 'leaflet';
-  import Leaflet from '$lib/Leaflet.svelte';
-  import Marker from '$lib/Marker.svelte';
+	import { type LatLngExpression } from 'leaflet';
+	import Leaflet from '$lib/Leaflet.svelte';
+	import Marker from '$lib/Marker.svelte';
 	import Vector from '$lib/Vector.svelte';
 	import { getLocation } from '$lib/openStreetMap';
 	import { search } from '$lib/store';
 
-  const initialView: LatLngExpression = [48.864716, 2.349014]; // Paris, France
-  
-  let searchedLocationType: string | undefined;
-  let searchedLocation: LatLngExpression | undefined;
+	const initialView: LatLngExpression = [48.864716, 2.349014]; // Paris, France
 
-  $: if ($search) {
-    searchedLocation = undefined;
-    getLocation($search).then( response => {
-      console.log(response);
-      searchedLocationType = response.type;
-      searchedLocation = response.coordinates;
-    });
-  };
+	let searchedLocationType: string | undefined;
+	let searchedLocation: (LatLngExpression & LatLngExpression[]) | undefined;
+
+	$: if ($search) {
+		searchedLocation = undefined;
+		getLocation($search).then((response) => {
+			console.log(response);
+			searchedLocationType = response.type;
+			searchedLocation = response.coordinates;
+		});
+	}
 </script>
 
 <div class="w-screen h-screen">
-  <Leaflet view={initialView} zoom={13}>
-    {#if searchedLocation}
-      {#if searchedLocationType === 'Point'}
-        <Marker latLng={searchedLocation} width={40} height={40} />
-      {:else if searchedLocationType === 'Polygon'}
-        <Vector latLngs={searchedLocation} color={'blue'} />
-      {/if}
-    {/if}
-
-    <!-- {#if latLngs}
-      <Vector {latLngs} color={'blue'} />
-    {/if} -->
-  </Leaflet>
+	<Leaflet view={initialView} zoom={13}>
+		{#if searchedLocation}
+			{#if searchedLocationType === 'Point'}
+				<Marker latLng={searchedLocation} />
+			{:else if searchedLocationType === 'Polygon'}
+				<Vector latLngs={searchedLocation} color={'blue'} />
+			{/if}
+		{/if}
+	</Leaflet>
 </div>

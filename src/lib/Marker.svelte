@@ -2,8 +2,6 @@
 	import { onMount, onDestroy, getContext, setContext } from 'svelte';
 	import L from 'leaflet';
 
-	export let width: number;
-	export let height: number;
 	export let latLng: L.LatLngExpression;
 
 	let marker: L.Marker | undefined;
@@ -19,7 +17,7 @@
 	onMount(() => {
 		if (map) {
 			marker = L.marker(latLng).addTo(map);
-      map.flyTo(latLng);
+			map.flyTo(latLng);
 		}
 	});
 
