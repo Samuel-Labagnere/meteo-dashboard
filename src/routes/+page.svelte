@@ -1,2 +1,14 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import type { LatLngExpression } from 'leaflet';
+  import Leaflet from '$lib/Leaflet.svelte';
+  import Marker from '$lib/Marker.svelte';
+	import Vector from '$lib/Vector.svelte';
+
+  const initialView: LatLngExpression = [48.864716, 2.349014]; // Paris, France
+</script>
+
+<div class="w-screen h-screen">
+  <Leaflet view={initialView} zoom={13}>
+  <!-- Children -->
+  </Leaflet>
+</div>
