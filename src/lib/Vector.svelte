@@ -18,12 +18,12 @@
 	onMount(() => {
 		if (map) {
       polygon = L.polygon(latLngs, {color}).addTo(map);
+      map.flyToBounds(polygon.getBounds());
 		}
 	});
 
 	onDestroy(() => {
 		polygon?.remove();
-		polygon = undefined;
 	});
 </script>
 
