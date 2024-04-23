@@ -18,12 +18,8 @@
 
 	onMount(() => {
 		if (map) {
-			let icon = L.divIcon({
-				html: markerElement,
-				className: 'map-marker',
-				iconSize: L.point(width, height)
-			});
-			marker = L.marker(latLng, { icon }).addTo(map);
+			marker = L.marker(latLng).addTo(map);
+      map.flyTo(latLng);
 		}
 	});
 
