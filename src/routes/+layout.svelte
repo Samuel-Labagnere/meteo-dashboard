@@ -19,7 +19,7 @@
 		const value = searchElement.value.trim();
 		if (event.key === 'Enter' && value !== '') {
 			$search = value;
-			document.cookie = `address=${value}`;
+			document.cookie = `address=${encodeURIComponent(value)}`;
 		}
 	};
 
