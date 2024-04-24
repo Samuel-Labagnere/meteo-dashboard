@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy, getContext, setContext } from 'svelte';
 	import L from 'leaflet';
-	import { createToolTip } from './leafletUtils';
 
 	export let latLng: L.LatLngExpression;
 
