@@ -4,6 +4,7 @@
 
 	export let latLngs: L.LatLngExpression[];
 	export let color: string = 'red';
+	export let skip: boolean = false;
 
 	let polygon: L.Polygon | undefined;
 	let polygonElement: HTMLElement;
@@ -18,6 +19,8 @@
 	onMount(() => {
 		if (map) {
 			polygon = L.polygon(latLngs, { color }).addTo(map);
+
+			if (!skip)
 			map.flyToBounds(polygon.getBounds());
 		}
 	});

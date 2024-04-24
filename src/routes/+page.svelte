@@ -2,6 +2,7 @@
   import Leaflet from '$lib/Leaflet.svelte';
 	import Marker from '$lib/Marker.svelte';
 	import Vector from '$lib/Vector.svelte';
+	import { zoom } from '$lib/leafletUtils';
 	import { getLocation } from '$lib/openStreetMap';
 	import { search } from '$lib/store';
 	import { type LatLngExpression } from 'leaflet';
@@ -9,7 +10,7 @@
 	const initialView: LatLngExpression = [48.864716, 2.349014]; // Paris, France
 
 	let searchedLocationType: string | undefined;
-	let searchedLocation: (LatLngExpression & LatLngExpression[]) | undefined;
+	let searchedLocation: (LatLngExpression & LatLngExpression[] & LatLngExpression[][]) | undefined;
 
 	$: if ($search) {
 		searchedLocation = undefined;
@@ -28,6 +29,11 @@
 				<Marker latLng={searchedLocation} />
 			{:else if searchedLocationType === 'Polygon'}
 				<Vector latLngs={searchedLocation} color={'blue'} />
+			{:else if searchedLocationType === 'MultiPolygon'}
+				{#each searchedLocation as location}
+					<Vector latLngs={location} color={'blue'} skip />
+				{/each}
+				{ zoom(searchedLocation) }
 			{/if}
 		{/if}
 	</Leaflet>
