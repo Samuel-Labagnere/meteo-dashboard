@@ -9,7 +9,7 @@
 - [x] Handling large places with separated boundaries (MultiPolygons)
 - [x] Handling Countries (Polygons & MultiPolygons)
 - [x] Handling research
-- [ ] Showing recommandations based on user input in research bar
+- [ ] ~~Showing recommandations based on user input in research bar~~
 - [x] Implementing a Weather API
 - [x] Showing weather data through Tooltips
 - [ ] Add some cool stuff ?
