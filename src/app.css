@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #searchbar {
-	@apply absolute top-5 left-20 rounded w-1/4 h-10 border px-4 z-top;
+	@apply rounded w-1/4 h-10 border px-4;
 }
 
 .tooltip {

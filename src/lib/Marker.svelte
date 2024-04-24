@@ -17,10 +17,6 @@
 	onMount(() => {
 		if (map) {
 			marker = L.marker(latLng).addTo(map);
-			marker.bindTooltip(createToolTip(), {
-				permanent: true,
-				className: 'tooltip'
-			});
 			map.flyTo(latLng);
 		}
 	});

@@ -3,8 +3,8 @@ import { weather } from './store';
 
 export const drawChart = () => {
 	// Declare the chart dimensions and margins.
-	const width = 928;
-	const height = 500;
+	const width = 700;
+	const height = 300;
 	const marginTop = 20;
 	const marginRight = 30;
 	const marginBottom = 30;
@@ -54,7 +54,7 @@ export const drawChart = () => {
 				.ticks(width / 120)
 				.tickSizeOuter(0)
 				// @ts-ignore
-				.tickFormat(d3.utcFormat('%d %H:%M'))
+				.tickFormat(d3.utcFormat('%d/%m %H:%M'))
 		)
 		.call((g) =>
 			g

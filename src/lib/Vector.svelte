@@ -22,8 +22,6 @@
 			polygon = L.polygon(latLngs, { color }).addTo(map);
 
 			if (!skip) map.flyToBounds(polygon.getBounds());
-			if (showTooltip)
-				polygon.bindTooltip(createToolTip(), { permanent: true, className: 'tooltip' });
 		}
 	});
 

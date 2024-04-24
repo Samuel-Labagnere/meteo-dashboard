@@ -75,9 +75,11 @@ const getWeather = async (coordinates: any) => {
 
 	const hourly = response.hourly()!;
 
-	const timeRange = range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-		(t) => new Date((t + utcOffsetSeconds) * 1000)
-	);
+	const timeRange = range(
+		Number(hourly.time()),
+		Number(hourly.timeEnd()),
+		hourly.interval() * 2
+	).map((t) => new Date((t + utcOffsetSeconds) * 1000));
 	const temperature2m = hourly.variables(0)!.valuesArray()!;
 
 	return timeRange.map((time, index) => [time, temperature2m[index]]);
