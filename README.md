@@ -6,7 +6,8 @@
 - [x] Implementing Leaflet
 - [x] Handling single locations (Points)
 - [x] Handling Cities (Polygons)
-- [ ] Handling large places with separated boundaries (MultiPolygons)
+- [x] Handling large places with separated boundaries (MultiPolygons)
+- [x] Handling Countries (Polygons & MultiPolygons)
 - [x] Handling research
 - [ ] Showing recommandations based on user input in research bar
 - [ ] Implementing a Weather API
