@@ -5,6 +5,9 @@ export default {
 		extend: {
 			zIndex: {
 				top: '999'
+			},
+			maxWidth: {
+				100: '32rem'
 			}
 		}
 	},

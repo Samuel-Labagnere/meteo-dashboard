@@ -3,7 +3,7 @@
 	import Marker from '$lib/Marker.svelte';
 	import Vector from '$lib/Vector.svelte';
 	import { zoom } from '$lib/leafletUtils';
-	import { getLocation } from '$lib/openStreetMap';
+	import { getLocation } from '$lib/geodata';
 	import { search } from '$lib/store';
 	import { type LatLngExpression } from 'leaflet';
 
@@ -15,7 +15,6 @@
 	$: if ($search) {
 		searchedLocation = undefined;
 		getLocation($search).then((response) => {
-			console.log(response);
 			searchedLocationType = response.type;
 			searchedLocation = response.coordinates;
 		});
@@ -28,10 +27,10 @@
 			{#if searchedLocationType === 'Point'}
 				<Marker latLng={searchedLocation} />
 			{:else if searchedLocationType === 'Polygon'}
-				<Vector latLngs={searchedLocation} color={'blue'} />
+				<Vector latLngs={searchedLocation} color={'blue'} showTooltip />
 			{:else if searchedLocationType === 'MultiPolygon'}
-				{#each searchedLocation as location}
-					<Vector latLngs={location} color={'blue'} skip />
+				{#each searchedLocation as location, index}
+					<Vector latLngs={location} color={'blue'} skip showTooltip={index === 0} />
 				{/each}
 				{zoom(searchedLocation)}
 			{/if}
