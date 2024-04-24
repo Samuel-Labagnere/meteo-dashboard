@@ -20,7 +20,10 @@ export const createToolTip = () => {
 
 	const toolTipStartDiv = `<div class="max-w-100 px-4 pt-4 text-wrap pointer-events-auto">`;
 	const toolTipEndDiv = `</div>`;
-	const baseText = `<h1 class="text-xl mb-4">Météo de ${searchContent}</h1>`;
+	const baseText = `
+  <h1 class="text-xl">Météo de ${searchContent}</h1>
+  <h2 class="text-md mb-4">Aujourd'hui et demain</h2>
+  `;
 	const startDiv = `<div class="flex gap-2 pb-4 overflow-x-scroll">`;
 	const endDiv = `</div>`;
 	let finalText: string = toolTipStartDiv + baseText;
@@ -29,10 +32,11 @@ export const createToolTip = () => {
 
 	finalText += startDiv;
 	weatherData.forEach((data: any, index: number) => {
+		let date = new Date(data[0]);
 		finalText += `
-    <div class="flex flex-col items-center${index < weatherData.length - 1 ? ' border-r pr-2' : ''}">
+    <div class="flex flex-col items-center min-w-fit${index < weatherData.length - 1 ? ' border-r pr-2' : ''}">
     <p>${Number(data[1]).toFixed(2)}°C</p>
-    <p class="font-bold">${new Date(data[0]).getHours()}:00</p>
+    <p class="font-bold">${date.getDate() + ' ' + date.toLocaleString('fr', { month: 'short' }) + ' ' + date.getHours()}:00</p>
     </div>
     `;
 	});

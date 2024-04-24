@@ -61,8 +61,7 @@ const getWeather = async (coordinates: any) => {
 		latitude: coordinates[0],
 		longitude: coordinates[1],
 		hourly: 'temperature_2m',
-		start_date: currentDate,
-		end_date: currentDate
+		forecast_days: 2
 	};
 	const url = 'https://api.open-meteo.com/v1/forecast';
 	const responses = await fetchWeatherApi(url, params);

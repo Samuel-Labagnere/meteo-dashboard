@@ -51,10 +51,10 @@ export const drawChart = () => {
 		.call(
 			d3
 				.axisBottom(x)
-				.ticks(width / 40)
+				.ticks(width / 120)
 				.tickSizeOuter(0)
 				// @ts-ignore
-				.tickFormat(d3.utcFormat('%H:%M'))
+				.tickFormat(d3.utcFormat('%d %H:%M'))
 		)
 		.call((g) =>
 			g
