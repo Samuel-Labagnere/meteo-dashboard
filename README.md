@@ -10,6 +10,6 @@
 - [x] Handling Countries (Polygons & MultiPolygons)
 - [x] Handling research
 - [ ] Showing recommandations based on user input in research bar
-- [ ] Implementing a Weather API
-- [ ] Showing weather data through Tooltips on hover
+- [x] Implementing a Weather API
+- [x] Showing weather data through Tooltips
 - [ ] Add some cool stuff ?
