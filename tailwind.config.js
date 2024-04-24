@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			zIndex: {
-				'top': '999',
+				top: '999'
 			}
 		}
 	},

@@ -7,7 +7,6 @@
 	export let skip: boolean = false;
 
 	let polygon: L.Polygon | undefined;
-	let polygonElement: HTMLElement;
 
 	const { getMap }: { getMap: () => L.Map | undefined } = getContext('map');
 	const map = getMap();
@@ -20,8 +19,7 @@
 		if (map) {
 			polygon = L.polygon(latLngs, { color }).addTo(map);
 
-			if (!skip)
-			map.flyToBounds(polygon.getBounds());
+			if (!skip) map.flyToBounds(polygon.getBounds());
 		}
 	});
 
@@ -30,7 +28,7 @@
 	});
 </script>
 
-<div bind:this={polygonElement}>
+<div>
 	{#if polygon}
 		<slot />
 	{/if}

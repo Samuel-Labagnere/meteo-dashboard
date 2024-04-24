@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Leaflet from '$lib/Leaflet.svelte';
+	import Leaflet from '$lib/Leaflet.svelte';
 	import Marker from '$lib/Marker.svelte';
 	import Vector from '$lib/Vector.svelte';
 	import { zoom } from '$lib/leafletUtils';
@@ -33,7 +33,7 @@
 				{#each searchedLocation as location}
 					<Vector latLngs={location} color={'blue'} skip />
 				{/each}
-				{ zoom(searchedLocation) }
+				{zoom(searchedLocation)}
 			{/if}
 		{/if}
 	</Leaflet>
