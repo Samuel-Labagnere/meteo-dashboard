@@ -2,6 +2,7 @@
 	import '../app.css';
 	import { search } from '$lib/store';
 	import { onMount } from 'svelte';
+	// import { getLocations } from '$lib/geodata';
 
 	export let data;
 
@@ -21,6 +22,11 @@
 			document.cookie = `address=${value}`;
 		}
 	};
+
+	const handleInput = async () => {
+		// const value = searchElement.value.trim();
+		// const response = await getLocations(value);
+	};
 </script>
 
 <svelte:head>
@@ -37,6 +43,7 @@
 		placeholder="Rechercher"
 		bind:this={searchElement}
 		on:keydown={handleSearch}
+		on:input={handleInput}
 	/>
 
 	<slot />

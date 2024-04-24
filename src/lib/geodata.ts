@@ -44,6 +44,17 @@ export const getLocation = async (place: string) => {
 	return geoData;
 };
 
+// export const getLocations = async (search: string) => {
+// 	const placeQueryReadable = search.replaceAll(' ', '+');
+// 	const osmBaseUrl = 'https://nominatim.openstreetmap.org/search';
+// 	const osmUrl = `${osmBaseUrl}?q=${placeQueryReadable}&limit=5&format=json`;
+
+// 	const query = await fetch(osmUrl);
+// 	const response = await query.json();
+
+// 	return response;
+// };
+
 const getWeather = async (coordinates: any) => {
 	const currentDate = new Date().toISOString().slice(0, 10);
 	const params = {
