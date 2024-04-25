@@ -30,10 +30,7 @@
 <div class="w-screen h-screen overflow-hidden grid grid-rows-2">
 	<div class="flex flex-col h-full gap-4 p-4">
 		<Searchbar cookieData={data} />
-
-		<div class="grid grid-cols-2 gap-2 h-full">
-			<Dashboard />
-		</div>
+		<Dashboard />
 	</div>
 	<div class="relative w-full h-full">
 		<div class="absolute top-0 left-0 w-full h-full">
