@@ -26,12 +26,12 @@
 	}
 </script>
 
-<div class="w-screen h-screen overflow-hidden{$search ? ' grid grid-rows-3 md:grid-rows-2' : ''}">
-	<div class="flex flex-col row-span-2 md:row-span-1 gap-4 p-4">
+<div class="w-screen h-screen flex flex-col overflow-hidden{$search ? ' grid grid-rows-3 md:grid-rows-2' : ''}">
+	<div class="flex-initial flex flex-col row-span-2 md:row-span-1 gap-4 p-4">
 		<Searchbar cookieData={data} />
 		<Dashboard />
 	</div>
-	<div class="relative w-full h-full">
+	<div class="flex-auto relative w-full h-full">
 		<div class="absolute top-0 left-0 w-full h-full">
 			<Leaflet view={initialView} zoom={13}>
 				{#if searchedLocation}
