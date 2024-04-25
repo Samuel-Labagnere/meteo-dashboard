@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy, getContext, setContext } from 'svelte';
-	import L from 'leaflet';
+	import L, { type LatLngExpression } from 'leaflet';
 
 	export let latLng: L.LatLngExpression;
 
@@ -16,7 +16,16 @@
 	onMount(() => {
 		if (map) {
 			marker = L.marker(latLng).addTo(map);
-			map.flyTo(latLng);
+			const offset: number[] = [-0.0045, 0];
+			const latLngAsArray: number[] = latLng as number[];
+			let latLngOffset: LatLngExpression | number[] = [];
+
+			for (let i = 0; i < latLngAsArray.length; i++) {
+				const sum = latLngAsArray[i] + offset[i];
+				latLngOffset.push(sum);
+			}
+
+			map.flyTo(latLngOffset as LatLngExpression, 15);
 		}
 	});
 

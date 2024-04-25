@@ -1,4 +1,5 @@
 import { type LatLngExpression } from 'leaflet';
+import { type WeatherData } from '../type';
 import { fetchWeatherApi } from 'openmeteo';
 import { weather } from '$lib/store';
 
@@ -55,13 +56,29 @@ export const getLocation = async (place: string) => {
 // 	return response;
 // };
 
-const getWeather = async (coordinates: any) => {
+const getWeather = async (coordinates: LatLngExpression): Promise<WeatherData> => {
+	const coordinatesArray: number[] = coordinates as number[];
 	const params = {
-		latitude: coordinates[0],
-		longitude: coordinates[1],
-		current: ["temperature_2m", "relative_humidity_2m", "rain", "weather_code", "wind_speed_10m", "wind_direction_10m"],
-		hourly: ["temperature_2m", "uv_index"],
-		daily: ["weather_code", "temperature_2m_max", "temperature_2m_min", "uv_index_max", "rain_sum", "wind_speed_10m_max", "wind_direction_10m_dominant"],
+		latitude: coordinatesArray[0],
+		longitude: coordinatesArray[1],
+		current: [
+			'temperature_2m',
+			'relative_humidity_2m',
+			'rain',
+			'weather_code',
+			'wind_speed_10m',
+			'wind_direction_10m'
+		],
+		hourly: ['temperature_2m', 'uv_index'],
+		daily: [
+			'weather_code',
+			'temperature_2m_max',
+			'temperature_2m_min',
+			'uv_index_max',
+			'rain_sum',
+			'wind_speed_10m_max',
+			'wind_direction_10m_dominant'
+		],
 		forecast_days: 7
 	};
 	const url = 'https://api.open-meteo.com/v1/forecast';
@@ -84,14 +101,12 @@ const getWeather = async (coordinates: any) => {
 		hourly.interval() * 2
 	).map((t) => new Date((t + utcOffsetSeconds) * 1000));
 	const temperature2m = hourly.variables(0)!.valuesArray()!;
-	const dailyTimeRange = range(
-		Number(daily.time()),
-		Number(daily.timeEnd()),
-		daily.interval()
-	).map((t) => new Date((t + utcOffsetSeconds) * 1000));
+	const dailyTimeRange = range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
+		(t) => new Date((t + utcOffsetSeconds) * 1000)
+	);
 
 	const getWindDirection = (direction: number) => {
-		if ((direction >= 0 && direction < 45) || (direction >=315 && direction < 360)) {
+		if ((direction >= 0 && direction < 45) || (direction >= 315 && direction < 360)) {
 			return 'Sud';
 		} else if (direction >= 45 && direction < 135) {
 			return 'Ouest';
@@ -100,21 +115,21 @@ const getWeather = async (coordinates: any) => {
 		} else {
 			return 'Est';
 		}
-	}
+	};
 
-	const weatherData = {
+	const weatherData: WeatherData = {
 		current: {
 			temperature: {
 				current: current.variables(0)!.value(),
-				max: Math.max(...temperature2m.slice(0,12)),
-				min: Math.min(...temperature2m.slice(0,12)),
+				max: Math.max(...temperature2m.slice(0, 12)),
+				min: Math.min(...temperature2m.slice(0, 12))
 			},
 			weatherCode: current.variables(3)!.value(),
 			humidity: current.variables(1)!.value(),
 			rain: current.variables(2)!.value(),
 			wind: {
 				speed: current.variables(4)!.value(),
-				direction: getWindDirection(current.variables(5)!.value()),
+				direction: getWindDirection(current.variables(5)!.value())
 			},
 			uvIndex: hourly.variables(1)!.value()
 		},
@@ -124,7 +139,7 @@ const getWeather = async (coordinates: any) => {
 			weatherCode: daily.variables(0)!.valuesArray()![index],
 			temperature: {
 				max: daily.variables(1)!.valuesArray()![index],
-				min: daily.variables(2)!.valuesArray()![index],
+				min: daily.variables(2)!.valuesArray()![index]
 			},
 			uvIndex: daily.variables(3)!.valuesArray()![index],
 			rain: daily.variables(4)!.valuesArray()![index],
@@ -134,8 +149,6 @@ const getWeather = async (coordinates: any) => {
 			}
 		}))
 	};
-
-	console.log(weatherData);
 
 	return weatherData;
 };
