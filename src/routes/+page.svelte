@@ -27,11 +27,11 @@
 	}
 </script>
 
-<div class="w-screen h-screen overflow-hidden grid grid-rows-2">
-	<div class="flex flex-col h-full gap-4 p-4">
-		<Searchbar cookieData={data} />
-		<Dashboard />
-	</div>
+<div class="w-screen h-screen overflow-hidden{$search ? ' grid grid-rows-2' : ''}">
+		<div class="flex flex-col gap-4 p-4">
+			<Searchbar cookieData={data} />
+				<Dashboard />
+		</div>
 	<div class="relative w-full h-full">
 		<div class="absolute top-0 left-0 w-full h-full">
 			<Leaflet view={initialView} zoom={13}>

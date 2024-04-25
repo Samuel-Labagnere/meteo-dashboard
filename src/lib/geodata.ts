@@ -56,12 +56,13 @@ export const getLocation = async (place: string) => {
 // };
 
 const getWeather = async (coordinates: any) => {
-	const currentDate = new Date().toISOString().slice(0, 10);
 	const params = {
 		latitude: coordinates[0],
 		longitude: coordinates[1],
-		hourly: 'temperature_2m',
-		forecast_days: 2
+		current: ["temperature_2m", "relative_humidity_2m", "rain", "weather_code", "wind_speed_10m", "wind_direction_10m"],
+		hourly: ["temperature_2m", "uv_index"],
+		daily: ["weather_code", "temperature_2m_max", "temperature_2m_min", "uv_index_max", "rain_sum", "wind_speed_10m_max", "wind_direction_10m_dominant"],
+		forecast_days: 7
 	};
 	const url = 'https://api.open-meteo.com/v1/forecast';
 	const responses = await fetchWeatherApi(url, params);
@@ -73,14 +74,68 @@ const getWeather = async (coordinates: any) => {
 
 	const utcOffsetSeconds = response.utcOffsetSeconds();
 
+	const current = response.current()!;
 	const hourly = response.hourly()!;
+	const daily = response.daily()!;
 
-	const timeRange = range(
+	const hourlyTimeRange = range(
 		Number(hourly.time()),
 		Number(hourly.timeEnd()),
 		hourly.interval() * 2
 	).map((t) => new Date((t + utcOffsetSeconds) * 1000));
 	const temperature2m = hourly.variables(0)!.valuesArray()!;
+	const dailyTimeRange = range(
+		Number(daily.time()),
+		Number(daily.timeEnd()),
+		daily.interval()
+	).map((t) => new Date((t + utcOffsetSeconds) * 1000));
 
-	return timeRange.map((time, index) => [time, temperature2m[index]]);
+	const getWindDirection = (direction: number) => {
+		if ((direction >= 0 && direction < 45) || (direction >=315 && direction < 360)) {
+			return 'Sud';
+		} else if (direction >= 45 && direction < 135) {
+			return 'Ouest';
+		} else if (direction >= 135 && direction < 225) {
+			return 'Nord';
+		} else {
+			return 'Est';
+		}
+	}
+
+	const weatherData = {
+		current: {
+			temperature: {
+				current: current.variables(0)!.value(),
+				max: Math.max(...temperature2m.slice(0,12)),
+				min: Math.min(...temperature2m.slice(0,12)),
+			},
+			weatherCode: current.variables(3)!.value(),
+			humidity: current.variables(1)!.value(),
+			rain: current.variables(2)!.value(),
+			wind: {
+				speed: current.variables(4)!.value(),
+				direction: getWindDirection(current.variables(5)!.value()),
+			},
+			uvIndex: hourly.variables(1)!.value()
+		},
+		hourly: hourlyTimeRange.map((time, index) => [time, temperature2m[index]]),
+		daily: dailyTimeRange.map((time, index) => ({
+			date: time,
+			weatherCode: daily.variables(0)!.valuesArray()![index],
+			temperature: {
+				max: daily.variables(1)!.valuesArray()![index],
+				min: daily.variables(2)!.valuesArray()![index],
+			},
+			uvIndex: daily.variables(3)!.valuesArray()![index],
+			rain: daily.variables(4)!.valuesArray()![index],
+			wind: {
+				speed: daily.variables(5)!.valuesArray()![index],
+				direction: getWindDirection(daily.variables(6)!.valuesArray()![index])
+			}
+		}))
+	};
+
+	console.log(weatherData);
+
+	return weatherData;
 };

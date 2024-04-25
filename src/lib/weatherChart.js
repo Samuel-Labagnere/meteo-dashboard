@@ -4,14 +4,14 @@ import { weather } from './store';
 export const drawChart = () => {
 	// Declare the chart dimensions and margins.
 	const width = 700;
-	const height = 300;
+	const height = 225;
 	const marginTop = 20;
 	const marginRight = 30;
 	const marginBottom = 30;
 	const marginLeft = 40;
 
 	let weatherData;
-	weather.subscribe((value) => (weatherData = value));
+	weather.subscribe((value) => (weatherData = value.hourly.slice(0, 12)));
 
 	// Declare the x (horizontal position) scale.
 	// @ts-ignore
