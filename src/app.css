@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #searchbar {
-	@apply rounded w-1/3 h-10 border px-4;
+	@apply rounded w-full md:w-1/3 h-10 border px-4;
 }
 
 .btn {

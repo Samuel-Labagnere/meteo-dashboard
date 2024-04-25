@@ -27,7 +27,7 @@
 	};
 </script>
 
-<div class="flex items-center gap-5">
+<div class="flex flex-col md:flex-row md:items-center gap-5">
 	<h1 class="text-xl">Dashboard Météo</h1>
 	<input
 		type="text"

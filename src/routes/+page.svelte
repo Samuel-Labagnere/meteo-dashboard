@@ -26,8 +26,8 @@
 	}
 </script>
 
-<div class="w-screen h-screen overflow-hidden{$search ? ' grid grid-rows-2' : ''}">
-	<div class="flex flex-col gap-4 p-4">
+<div class="w-screen h-screen overflow-hidden{$search ? ' grid grid-rows-3 md:grid-rows-2' : ''}">
+	<div class="flex flex-col row-span-2 md:row-span-1 gap-4 p-4">
 		<Searchbar cookieData={data} />
 		<Dashboard />
 	</div>
